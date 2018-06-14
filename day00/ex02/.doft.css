@@ -1,0 +1,129 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    doft.css                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: amehmeto <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/03/27 00:13:48 by amehmeto          #+#    #+#              #
+#    Updated: 2018/03/27 22:02:02 by amehmeto         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+html {
+}
+
+body {
+	background-color: #505050;
+}
+
+header {
+	background-color: #909090;
+
+	width: 80%;
+	height: 117px;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 10px;
+
+	position: relative;
+
+	clear: both;
+}
+
+header img {
+	margin: 0;
+	height: 100%;
+}
+
+header .loupe {
+	height: auto;
+	position: absolute;
+	bottom: -25px;
+	right: 20px;
+}
+
+header .right {
+	float: right;
+}
+
+header .reload {
+	height: auto;
+	width: 17px;
+}
+
+header .close{
+	height: auto;
+	width: 17px;
+	position: absolute;
+	bottom: 10px;
+}
+
+######################
+
+.wrapper {
+	display: flex;
+	width: 70%;
+}
+
+section {
+	display: flex;
+	justify-content: center;
+}
+
+section aside {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	background-color: #909090;
+	margin-right: 20px;
+	padding: 20px;
+	width: 141px;
+	height: 485px;
+}
+
+section aside img {
+	width: 70px;
+	margin: 5px;
+}
+
+section .border_img {
+	border: solid red 5px;
+	border-radius: 5px;
+}
+
+section .middle {
+	background-color: #909090;
+	padding: 10px;
+	width: 1000px;
+	margin-right: 20px;
+}
+
+section .middle img {
+	display: block;
+	width: 1000px;
+	margin: auto;
+}
+
+######################
+
+#boiteverte {
+	display: block;
+	width: 510px;
+	height: 170px;
+	position: absolute;
+	top: 6605px;
+	left: -42px;
+	background-color: #88FF89;
+	font-family: Times;
+}	
+
+.radius {
+	border-radius: 10px;	
+}
+
+.shadow {
+	box-shadow: 8px 11px 8px black;
+}

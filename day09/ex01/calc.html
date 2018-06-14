@@ -1,0 +1,78 @@
+<!-- *********************************************************************** -->
+<!--                                                                         -->
+<!--                                                      :::      ::::::::  -->
+<!-- calc.html                                          :+:      :+:    :+:  -->
+<!--                                                  +:+ +:+         +:+    -->
+<!-- By: amehmeto <marvin@42.fr>                    +#+  +:+       +#+       -->
+<!--                                              +#+#+#+#+#+   +#+          -->
+<!-- Created: 2018/04/07 05:50:42 by amehmeto          #+#    #+#            -->
+<!-- Updated: 2018/04/07 09:34:53 by amehmeto         ###   ########.fr      -->
+<!--                                                                         -->
+<!-- *********************************************************************** -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Calc</title>
+	</head>
+	<body> 
+		<form name="calc" onsubmit="myCalc();">
+			<input type="text" value="8" name="a" />
+			<select name="op">
+				<option value="add">+</option>
+				<option value="sub">-</option>
+				<option value="mul">*</option>
+				<option selected="selected" value="div">/</option>
+				<option value="mod">%</option>
+			</select>
+			<input type="text" value="0" name="b" />
+			<input type="submit" value="Try me !" />
+		</form>
+<script>
+function add(a, b)
+{
+	return (a + b);
+}
+
+function sub(a, b)
+{
+	return (a - b);
+}
+
+function mul(a, b)
+{
+	return (a * b);
+}
+
+function div(a, b)
+{
+	return (a / b);
+}
+
+function mod(a, b)
+{
+	return (a % b);
+}
+
+function myCalc()
+{
+	var 	a = parseInt(document.forms["calc"]["a"].value);	
+	var 	b = parseInt(document.forms["calc"]["b"].value);
+	var 	op = document.forms["calc"]["op"].value;
+	var		rslt;
+
+	if ((isNaN(a) || isNaN(b)) || (a < 0 || b < 0))
+	{
+		alert("Error :(");
+		return ;
+	}
+	rslt = window[op](a, b);
+	(rslt == "Infinity") ? console.log("It's over 9000!") : console.log(rslt);
+	(rslt == "Infinity") ? alert("It's over 9000!") : alert(rslt);
+}
+
+setInterval(function(){ alert("Please use me..."); }, 30000);
+</script>
+	</body>
+</html>

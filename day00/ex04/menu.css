@@ -1,0 +1,120 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    menu.css                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: amehmeto <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/03/27 23:19:48 by amehmeto          #+#    #+#              #
+#    Updated: 2018/03/27 23:19:51 by amehmeto         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+ body
+{
+    font-family: sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-color: blue;
+}
+
+nav
+{
+    width: 100%;
+    background-color: #424558;
+
+}
+nav > ul
+{
+    float: left;
+    margin: 0px;
+    padding: 0px;
+}
+nav > ul > li
+{
+    float: left;
+    position: relative;
+}
+nav li
+{
+    list-style-type: none;
+}
+nav > ul > li > a
+{
+    padding: 20px 30px;
+    color: white;
+}
+nav > ul > li:hover
+{
+    padding: 15px 30px 20px 30px;
+}
+.submenu
+{
+    display: none;
+}
+nav a
+{
+    display: inline-block;;
+    text-decoration: none;
+}
+nav li:hover .submenu
+{
+    display: inline-block;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    padding: 0px;
+    z-index: 1000;
+}
+.submenu li a
+{
+    padding: 15px 30px;
+    font-size: 13px;
+    color: #222538;
+    width: 270px;
+}
+.submenu li
+{
+    border-bottom: 1px solid grey;
+}
+
+.submenu li a
+{
+    padding: 15px 30px;
+    font-size: 13px;
+    color: #222538;
+    width: 270px;
+}
+
+.pepe
+{
+    border-top: 5px solid green;
+    background-color: green;
+}
+.risitas
+{
+    border-top: 5px solid green;
+    background-color: green;
+}
+.troll
+{
+    border-top: 5px solid green;
+    background-color: green;
+}
+.pepe .submenu
+{
+    background-color: red;
+}
+.risitas .submenu
+{
+    background-color: red;
+}
+.troll .submenu
+{
+    background-color: red;
+}
+.submenu li:hover a
+{
+    color: yellow;
+    font-weight: bold;
+}

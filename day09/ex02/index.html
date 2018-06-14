@@ -1,0 +1,108 @@
+<!-- *********************************************************************** -->
+<!--                                                                         -->
+<!--                                                      :::      ::::::::  -->
+<!-- index.html                                         :+:      :+:    :+:  -->
+<!--                                                  +:+ +:+         +:+    -->
+<!-- By: amehmeto <marvin@42.fr>                    +#+  +:+       +#+       -->
+<!--                                              +#+#+#+#+#+   +#+          -->
+<!-- Created: 2018/04/07 09:36:10 by amehmeto          #+#    #+#            -->
+<!-- Updated: 2018/04/07 22:03:36 by amehmeto         ###   ########.fr      -->
+<!--                                                                         -->
+<!-- *********************************************************************** -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Calc</title>
+	</head>
+	<body> 
+		<button onclick="requestTask();">New</button>
+		<div id="ft_list">
+		</div>
+<script>
+
+let index = 0;
+function	createTask(task)
+{
+	var		task_div = document.createElement("DIV");
+	var		task_txt = document.createTextNode(task);
+	var		list = document.getElementById("ft_list");
+
+	task_div.appendChild(task_txt);
+	task_div.id = index++;
+	task_div.setAttribute("onclick", "deleteTask(this)");
+	list.insertBefore(task_div, list.childNodes[0]);
+	setCookie("task", encodeURIComponent(task_div.innerHTML), 30); 
+}
+
+function	requestTask()
+{
+	var		task = prompt("Ajoutez votre tache :");
+	
+	if (task != null)
+		createTask(task);
+}
+
+function	deleteTask(elem)
+{
+	if (confirm("Tache achevee ?"))
+	{
+		var		task = document.getElementById('ft_list');
+		var		cook = JSON.parse(getCookie(document.cookie));
+
+		for (var i = 0; i< cook.length; i++)
+		{
+			if (i == elem.id)
+			{
+				console.log(cook[i]);
+				cook.splice(i, 1);
+				console.log(cook[i]);
+				return ;
+			}
+		}
+		task.removeChild(elem);
+
+		var 	value = JSON.stringify(cook);
+		console.log(value);
+		setCookie("task", value, 1); 
+	}
+}
+
+function setCookie(cname, cvalue, exdays)
+{
+	var cook = document.cookie;
+    var d = new Date();
+    var expires; 
+	var tasks = [];
+
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    expires = "expires="+ d.toUTCString();
+
+	if (cook)
+		tasks = JSON.parse(getCookie(cook));
+	tasks.push(cvalue);
+	document.cookie = cname + "=" + JSON.stringify(tasks) + ";" + expires +
+		";path=/";
+}
+
+function getCookie(name)
+{
+	let tmp = document.cookie;
+
+	if (!tmp)
+		return (null);
+	tmp = tmp.split('=');
+	if (!tmp[1])
+		return (null)
+	return (tmp[1]);
+}
+
+function	check()
+{
+	var		task = document.getElementById("ft_list");
+	task.innerHTML = decodeURIComponent(getCookie("task"));
+}
+</script>
+	</body>
+</html>

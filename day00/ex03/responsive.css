@@ -1,0 +1,96 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    responsive.css                                     :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: amehmeto <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/03/27 23:16:05 by amehmeto          #+#    #+#              #
+#    Updated: 2018/03/27 23:18:10 by amehmeto         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+img {
+	border-radius: 10%;
+	width: 10%;
+	height: auto;
+}
+
+table
+{
+	border-collapse: block;
+	width: 100%;
+	height: 100%;
+}
+td
+{
+	border-radius: 10%;
+	padding: 10px;
+}
+.masse
+{
+	bottom: top-right;
+}
+.symbole
+{
+	text-align: center;
+	font-weight: bold;
+	font-size: 2vmin;
+}
+.number
+{
+	text-align: right; 
+}
+.orange
+{
+	background-color: orange;
+}
+.yellow
+{
+	background-color: yellow;
+}
+.green
+{
+	background-color: green;
+}
+.bluesky
+{
+	background-color: #CCEEFF;
+}
+.violet
+{
+	background-color: violet;
+}
+.grey
+{
+	background-color: grey;
+}
+.brown
+{
+	background-color: brown;
+}
+.pink
+{
+	background-color: pink;
+}
+.red
+{
+	background-color: red;
+}
+.blue
+{
+	background-color: blue;
+}
+.span
+{
+	position: relative;
+	width: 4vmin;
+	height: 5vmin;
+}
+.capt
+{
+	text-align: center;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 2vmin;
+}
