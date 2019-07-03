@@ -1,76 +1,90 @@
 #!/usr/bin/php
 <?php
 
-function updateTempCalculation($grad){
+function updateTempCalculation($grades){
 	static $total_effectif = 0;
 	static $grad_sum = 0;
 	$average;
 
-	$grad_sum += $grad;
+	$grad_sum += $grades;
 	$total_effectif++;
 	$average = $grad_sum / $total_effectif;
 
 	return $average;
 }
 
-function dataIsAGradNotCorrectedByMoulinette($data)
+function dataIsAGradeNotCorrectedByMoulinette($grade_line)
 {
-	if (is_numeric($data[1]) AND $data[2] !== 'moulinette')
+	if (is_numeric($grade_line[1]) AND $grade_line[2] !== 'moulinette')
 		return TRUE;
 	return FALSE;	
 }
 
-function dataIsAGradFromSpecificUser($data){
-	if (is_numeric($data[1]) AND $data[0])
-		return TRUE;
-	return FALSE;
-}
-
-function dataIsRelevant($data)
+function dataIsRelevant($grade_line)
 {
 	$averages['all'] = NULL;
 
-	if (dataIsAGradNotCorrectedByMoulinette($data))
+	if (dataIsAGradeNotCorrectedByMoulinette($grade_line))
 	{
-		$averages['all'] = updateTempCalculation($data[1]);
+		$averages['all'] = updateTempCalculation($grade_line[1]);
 		return $averages;
 	}
-	/*
-	   if (dataIsAGradFromSpecificUser($data))
-	   {
-	   $averages[$data[0]] = updateTempCalculation($data[1]);
-	   echo $data[0] . ':' . $averages[$data[0]] . "\n";
-	   return $averages;
-	   }
-	 */
 	return NULL; 
 }
 
-function calculateAverages($grades){
+function calculateAverage($grades){
 	$averages = NULL;
 
-	foreach($grades as $grade)
+	foreach($grades as $grade_line)
 	{
-		$data = explode(';', $grade);
-		if (dataIsRelevant($data))
-			$averages = dataIsRelevant($data);
+		if (dataIsRelevant($grade_line))
+			$averages = dataIsRelevant($grade_line);
 	}
 	return $averages;
 }
 
 function displayAverage($grades){
-	$averages = calculateAverages($grades);
+	$averages = calculateAverage($grades);
 	echo $averages['all'] . "\n";
 }
 
+function displayUserAverage($grades, $user){
+	echo $user . ':';
+	displayAverage($grades);
+}
+
+function displayUsersAverages($grades){
+	$user = $grades[0][0];
+	$i = 0;
+	while (isset($grades[$i]) AND $grades[$i][0] === $user)
+		$user_grades[] = $grades[$i++];
+	displayUserAverage($user_grades, $user);
+	if (isset($grades[$i]))
+	{
+		$user = $grades[$i][0];
+		while (isset($grades[$i]) AND $grades[$i][0] === $user)
+			$user_grades2[] = $grades[$i++];
+		displayUserAverage($user_grades2, $user);
+	}
+}
+
+function parseCSVgrades($original_CSV_grades){
+	unset($original_CSV_grades[0]);
+	asort($original_CSV_grades);
+	foreach($original_CSV_grades as $grade_line)
+	{
+		$grade_line_exploded = explode(';', $grade_line);
+		$grades[] = $grade_line_exploded;
+	}
+	return $grades;
+}
+
 if ($argc == 2) {
-	$grades = file('php://stdin');
-	unset($grades[0]);
-	asort($grades);
+	$grades = parseCSVgrades(file('php://stdin'));
 	if ($argv[1] === 'moyenne')
 		displayAverage($grades);
 	if ($argv[1] === 'moyenne_user')
-		displayUserAverage();
+		displayUsersAverages($grades);
 }
 
 ?>
