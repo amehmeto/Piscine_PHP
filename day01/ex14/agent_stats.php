@@ -1,13 +1,11 @@
 #!/usr/bin/php
 <?php
 
-function updateTempCalculation($grade){
-	static $total_effectif = 0;
-	static $grad_sum = 0;
-
-	$grad_sum += $grade;
-	$total_effectif++;
-	return $grad_sum / $total_effectif;
+function updateTempCalculation($grade, $tempCalculations){
+	$tempCalculations['grades_sum'] += $grade;
+	$tempCalculations['total_effectif']++;
+	$tempCalculations['temp_average'] = $tempCalculations['grades_sum'] / $tempCalculations['total_effectif'];
+	return $tempCalculations;
 }
 
 function dataIsAGradeNotCorrectedByMoulinette($grade_line){
@@ -17,10 +15,15 @@ function dataIsAGradeNotCorrectedByMoulinette($grade_line){
 }
 
 function calculateAverage($grades){
+	$tempCalculations = array(
+		'total_effectif' => 0,
+		'grades_sum' => 0,
+		'temp_average' => 0
+	);
 	foreach($grades as $grade_line)
 		if (dataIsAGradeNotCorrectedByMoulinette($grade_line))
-			$average = updateTempCalculation($grade_line[1]);
-	return $average;
+			$tempCalculations = updateTempCalculation($grade_line[1], $tempCalculations);
+	return $tempCalculations['temp_average'];
 }
 
 function displayAverage($grades){
