@@ -1,11 +1,11 @@
 #!/usr/bin/php
 <?php
 
-function updateTempCalculation($grades){
+function updateTempCalculation($grade){
 	static $total_effectif = 0;
 	static $grad_sum = 0;
 
-	$grad_sum += $grades;
+	$grad_sum += $grade;
 	$total_effectif++;
 	return $grad_sum / $total_effectif;
 }
@@ -19,8 +19,8 @@ function dataIsAGradeNotCorrectedByMoulinette($grade_line){
 function dataIsRelevant($grade_line){
 	if (dataIsAGradeNotCorrectedByMoulinette($grade_line))
 	{
-		$averages['all'] = updateTempCalculation($grade_line[1]);
-		return $averages;
+		$average['all'] = updateTempCalculation($grade_line[1]);
+		return $average;
 	}
 	return NULL; 
 }
@@ -33,8 +33,8 @@ function calculateAverage($grades){
 }
 
 function displayAverage($grades){
-	$averages = calculateAverage($grades);
-	echo $averages['all'] . "\n";
+	$average = calculateAverage($grades);
+	echo $average['all'] . "\n";
 }
 
 function displayUserAverage($grades, $user){
