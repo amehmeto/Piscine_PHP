@@ -16,25 +16,15 @@ function dataIsAGradeNotCorrectedByMoulinette($grade_line){
 	return FALSE;	
 }
 
-function dataIsRelevant($grade_line){
-	if (dataIsAGradeNotCorrectedByMoulinette($grade_line))
-	{
-		$average['all'] = updateTempCalculation($grade_line[1]);
-		return $average;
-	}
-	return NULL; 
-}
-
 function calculateAverage($grades){
 	foreach($grades as $grade_line)
-		if (dataIsRelevant($grade_line))
-			$average = dataIsRelevant($grade_line);
+		if (dataIsAGradeNotCorrectedByMoulinette($grade_line))
+			$average = updateTempCalculation($grade_line[1]);
 	return $average;
 }
 
 function displayAverage($grades){
-	$average = calculateAverage($grades);
-	echo $average['all'] . "\n";
+	echo calculateAverage($grades) . "\n";
 }
 
 function displayUserAverage($grades, $user){
