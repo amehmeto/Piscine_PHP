@@ -4,26 +4,19 @@
 function updateTempCalculation($grades){
 	static $total_effectif = 0;
 	static $grad_sum = 0;
-	$average;
 
 	$grad_sum += $grades;
 	$total_effectif++;
-	$average = $grad_sum / $total_effectif;
-
-	return $average;
+	return $grad_sum / $total_effectif;
 }
 
-function dataIsAGradeNotCorrectedByMoulinette($grade_line)
-{
+function dataIsAGradeNotCorrectedByMoulinette($grade_line){
 	if (is_numeric($grade_line[1]) AND $grade_line[2] !== 'moulinette')
 		return TRUE;
 	return FALSE;	
 }
 
-function dataIsRelevant($grade_line)
-{
-	$averages['all'] = NULL;
-
+function dataIsRelevant($grade_line){
 	if (dataIsAGradeNotCorrectedByMoulinette($grade_line))
 	{
 		$averages['all'] = updateTempCalculation($grade_line[1]);
@@ -33,14 +26,10 @@ function dataIsRelevant($grade_line)
 }
 
 function calculateAverage($grades){
-	$averages = NULL;
-
 	foreach($grades as $grade_line)
-	{
 		if (dataIsRelevant($grade_line))
-			$averages = dataIsRelevant($grade_line);
-	}
-	return $averages;
+			$average = dataIsRelevant($grade_line);
+	return $average;
 }
 
 function displayAverage($grades){
