@@ -38,15 +38,13 @@ function displayUserAverage($grades, $user){
 function displayUsersAverages($grades){
 	$user = $grades[0][0];
 	$i = 0;
-	while (isset($grades[$i]) AND $grades[$i][0] === $user)
-		$user_grades[] = $grades[$i++];
-	displayUserAverage($user_grades, $user);
-	if (isset($grades[$i]))
+	while (isset($grades[$i]))
 	{
 		$user = $grades[$i][0];
+		$user_grades = array();
 		while (isset($grades[$i]) AND $grades[$i][0] === $user)
-			$user_grades2[] = $grades[$i++];
-		displayUserAverage($user_grades2, $user);
+			$user_grades[] = $grades[$i++];
+		displayUserAverage($user_grades, $user);
 	}
 }
 
