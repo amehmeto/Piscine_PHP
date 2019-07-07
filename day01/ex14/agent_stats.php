@@ -43,16 +43,16 @@ function calculateAverage($grades, $moulinette=FALSE){
 	return $tempCalculations['temp_average'];
 }
 
-function displayAverage($grades){
-	echo calculateAverage($grades) . "\n";
+function displayAverage($grades, $moulinette=FALSE){
+	echo calculateAverage($grades, $moulinette) . "\n";
 }
 
-function displayUserAverage($grades, $user){
+function displayUserAverage($grades, $user, $moulinette=FALSE){
 	echo $user . ':';
-	displayAverage($grades);
+	displayAverage($grades, $moulinette);
 }
 
-function displayUsersAverages($grades){
+function displayUsersAverages($grades, $moulinette=FALSE){
 	$i = 0;
 	while (isset($grades[$i]))
 	{
@@ -60,13 +60,12 @@ function displayUsersAverages($grades){
 		$user_grades = array();
 		while (isset($grades[$i]) AND $grades[$i][0] === $user)
 			$user_grades[] = $grades[$i++];
-		displayUserAverage($user_grades, $user);
+		displayUserAverage($user_grades, $user, $moulinette);
 	}
 }
 
 function displayStandardDeviationWithMoulinette($grades){
-	echo 'adam_e:' . calculateAverage($grades, TRUE) . "\n";
-
+	displayUsersAverages($grades, 'adam_e', TRUE);
 }
 
 function parseCSVgrades($original_CSV_grades){
