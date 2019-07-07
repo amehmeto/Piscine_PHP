@@ -30,7 +30,17 @@ class AgentStatsTests extends TestCase {
 
 	public function testBertrandAndAdamCSVMoyenneUserShouldReturn2lines(){
 		$out = shell_exec('cat adam_e_and_bertrand_y_notes.csv | ./agent_stats.php moyenne_user');
-		$this->assertSame("adam_e:9.0555555555556\nbertrand_y:7.9473684210526\n", $out) ;
+		$this->assertSame("adam_e:9.0555555555556\nbertrand_y:7.9473684210526\n", $out);
+	}
+
+	public function testEcartMoulinetteAdamShouldReturn3Point05(){
+		$out = shell_exec('cat adam_e_notes.csv | ./agent_stats.php ecart_moulinette');
+		$this->assertSame("adam_e:3.0555555555556\n", $out);
+	}
+
+	public function testEcartMoulinetteShouldReturn2lines(){
+		$out = shell_exec('cat adam_e_and_bertrand_y_notes.csv | ./agent_stats.php ecart_moulinette');
+		$this->assertSame("adam_e:3.0555555555556\nbertrand_y:-1.0526315789474\n", $out);
 	}
 }
 ?>

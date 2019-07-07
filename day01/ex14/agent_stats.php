@@ -8,21 +8,38 @@ function updateTempCalculation($grade, $tempCalculations){
 	return $tempCalculations;
 }
 
-function dataIsAGradeNotCorrectedByMoulinette($grade_line){
+function gradeNotCorrectedByMoulinette($grade_line){
 	if (is_numeric($grade_line[1]) AND $grade_line[2] !== 'moulinette')
 		return TRUE;
 	return FALSE;	
 }
 
-function calculateAverage($grades){
+function gradeCorrectedByMoulinette($grade_line){
+	if (is_numeric($grade_line[1]) AND $grade_line[2] === 'moulinette')
+		return TRUE;
+	return FALSE;	
+}
+
+function calculateAverage($grades, $moulinette=FALSE){
 	$tempCalculations = array(
 		'total_effectif' => 0,
 		'grades_sum' => 0,
 		'temp_average' => 0
 	);
+	$tempCalculationsM = array(
+		'total_effectif' => 0,
+		'grades_sum' => 0,
+		'temp_average' => 0
+	);
 	foreach($grades as $grade_line)
-		if (dataIsAGradeNotCorrectedByMoulinette($grade_line))
+	{
+		if ($moulinette AND gradeCorrectedByMoulinette($grade_line))
+			$tempCalculationsM = updateTempCalculation($grade_line[1], $tempCalculationsM);
+		if (gradeNotCorrectedByMoulinette($grade_line))
 			$tempCalculations = updateTempCalculation($grade_line[1], $tempCalculations);
+	}
+	if ($moulinette)
+		return $tempCalculations['temp_average'] - $tempCalculationsM['temp_average'] ;
 	return $tempCalculations['temp_average'];
 }
 
@@ -36,7 +53,6 @@ function displayUserAverage($grades, $user){
 }
 
 function displayUsersAverages($grades){
-	$user = $grades[0][0];
 	$i = 0;
 	while (isset($grades[$i]))
 	{
@@ -46,6 +62,11 @@ function displayUsersAverages($grades){
 			$user_grades[] = $grades[$i++];
 		displayUserAverage($user_grades, $user);
 	}
+}
+
+function displayStandardDeviationWithMoulinette($grades){
+	echo 'adam_e:' . calculateAverage($grades, TRUE) . "\n";
+
 }
 
 function parseCSVgrades($original_CSV_grades){
@@ -65,6 +86,8 @@ if ($argc == 2) {
 		displayAverage($grades);
 	if ($argv[1] === 'moyenne_user')
 		displayUsersAverages($grades);
+	if ($argv[1] === 'ecart_moulinette')
+		displayStandardDeviationWithMoulinette($grades);
 }
 
 ?>
