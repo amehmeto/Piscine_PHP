@@ -46,6 +46,26 @@ class OneMoreTimeTests extends TestCase {
 		);
 	}
 
+	public function testSecondWordInvalidShouldRetunWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"Mercredi 32 Juillet 1999"
+		);
+	}
+
+	public function testValidSecondWordShouldReturnTimeStamp(){
+		$this->assertShellExec(
+			"1384254141\n",
+			"Mercredi 1 Juillet 1999"
+		);
+	}
+		
+	public function testValidSecondWord2ShouldReturnTimeStamp(){
+		$this->assertShellExec(
+			"1384254141\n",
+			"Mercredi 01 Juillet 1999"
+		);
+	}
 	/*
 	public function test9JulShouldReturnTimeStamp(){
 		$this->assertShellExec(
