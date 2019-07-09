@@ -35,61 +35,75 @@ class OneMoreTimeTests extends TestCase {
 	public function testFirstWordShouldBeDayName(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"Mercrediay 1 Juillet 1999"
+			"Mercrediay 1 Juillet 1999 12:02:21"
 		);
 	}
 
 	public function testSecondWordShouldBeNum1To31(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"Mercredi 1st Juillet 1999"
+			"Mercredi 1st Juillet 1999 12:02:21"
 		);
 	}
 
 	public function testSecondWordInvalidShouldRetunWrongFormat(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"Mercredi 32 Juillet 1999"
+			"Mercredi 32 Juillet 1999 12:02:21"
 		);
 	}
 
 	public function testSecondWordInvalid2ShouldRetunWrongFormat(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"Mercredi 00 Juillet 1999"
+			"Mercredi 00 Juillet 1999 12:02:21"
 		);
 	}
 	public function testSecondWordValid2ShouldRetunWrongFormat(){ $this->assertShellExec(
-			"1384254141\n",
-			"mercredi 31 Juillet 1999"
-		);
+		"1384254141\n",
+		"mercredi 31 Juillet 1999 12:02:21"
+	);
 	}
 
 	public function testValidSecondWordShouldReturnTimeStamp(){
 		$this->assertShellExec(
 			"1384254141\n",
-			"Mercredi 1 Juillet 1999"
+			"Mercredi 1 Juillet 1999 12:02:21"
 		);
 	}
-		
+
 	public function testValidSecondWord2ShouldReturnTimeStamp(){
 		$this->assertShellExec(
 			"1384254141\n",
-			"Mercredi 01 Juillet 1999"
+			"Mercredi 01 Juillet 1999 12:02:21"
 		);
 	}
 
 	public function testInvalidThirdWordShouldReturnTimeStamp(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"mercredi 1 JUL 1999"
+			"mercredi 1 JUL 1999 12:02:21"
 		);
 	}	
 
 	public function testInvalidThirdWordShouldReturnWrongFormat(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"mercredi 12 07 1999"
+			"mercredi 12 07 1999 12:02:21"
+		);
+	}
+
+	public function testInvalidFourthWordShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 12 juillet 99 12:02:21"
+		);
+	}
+
+	public function testInvalidFourthWord2ShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 31 Decembre 1969 12:02:21"
 		);
 	}
 	/*
