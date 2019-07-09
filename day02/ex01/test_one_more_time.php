@@ -106,6 +106,13 @@ class OneMoreTimeTests extends TestCase {
 			"mercredi 31 Decembre 1969 12:02:21"
 		);
 	}
+
+	public function testValidFifthWordShouldReturnTimeStamp(){
+		$this->assertShellExec(
+			"1384254141\n",
+			"mercredi 31 Decembre 1989 12:02:21"
+		);
+	}
 	/*
 	public function test9JulShouldReturnTimeStamp(){
 		$this->assertShellExec(
