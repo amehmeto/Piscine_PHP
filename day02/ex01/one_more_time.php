@@ -3,7 +3,7 @@
 
 function isDateFormatCorrect($given_date){
 	$first_word_pattern = '/^([Ll]undi|[Mm]ardi|[Mm]ercredi|[Jj]eudi|[Vv]endredi|[Ss]amedi|[Dd]imanche)\ ';
-	$second_word_pattern = '([0-2]?\d|3[0-1])\ /';
+	$second_word_pattern = '(0[1-9]|[1-2]?\d|3[0-1])\ /';
 
 	$full_pattern = $first_word_pattern . $second_word_pattern;
 	//echo $full_pattern . "\n";

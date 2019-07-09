@@ -52,6 +52,13 @@ class OneMoreTimeTests extends TestCase {
 			"Mercredi 32 Juillet 1999"
 		);
 	}
+
+	public function testSecondWordInvalid2ShouldRetunWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"Mercredi 00 Juillet 1999"
+		);
+	}
 	
 	public function testSecondWordValid2ShouldRetunWrongFormat(){
 		$this->assertShellExec(
@@ -73,6 +80,7 @@ class OneMoreTimeTests extends TestCase {
 			"Mercredi 01 Juillet 1999"
 		);
 	}
+
 	/*
 	public function test9JulShouldReturnTimeStamp(){
 		$this->assertShellExec(
