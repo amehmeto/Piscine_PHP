@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase;
 class OneMoreTimeTests extends TestCase {
 	private $_program_exec = './one_more_time.php ';
 	const QUOTE = "\"";
+	const WRONG_FORMAT = "Wrong Format\n";
 
 	private function getShellOutput($tested_param, $no_quotes_needed=FALSE){
 		if ($no_quotes_needed)
@@ -33,14 +34,14 @@ class OneMoreTimeTests extends TestCase {
 
 	public function testFirstWordShouldBeDayName(){
 		$this->assertShellExec(
-			"Wrong Format\n",
+			self::WRONG_FORMAT,
 			"Mercrediay 1 Juillet 1999"
 		);
 	}
 
 	public function testSecondWordShouldBeNum1To31(){
 		$this->assertShellExec(
-			"Wrong format\n",
+			self::WRONG_FORMAT,
 			"Mercredi 1st Juillet 1999"
 		);
 	}
