@@ -113,6 +113,48 @@ class OneMoreTimeTests extends TestCase {
 			"mercredi 31 Decembre 1989 12:02:21"
 		);
 	}
+
+	public function testInvalidFifthWordShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 31 Decembre 1989 32:02:21"
+		);
+	}
+
+	public function testInvalidFifthWord2ShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 31 Decembre 1989 12:72:21"
+		);
+	}
+
+	public function testInvalidFifthWord3ShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 31 Decembre 1989 12:42:91"
+		);
+	}
+
+	public function testSeparetorShouldBeOneSpaceOnly(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi\t31\tDecembre 1990 12:42:00"
+		);
+	}
+
+	public function testNoWhiteSpaceAtTheEnd(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 31 Decembre 1990 12:42:00 "
+		);
+	}
+
+	public function testNoWhiteSpaceAtTheBeginning(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			" mercredi 31 Decembre 1990 12:42:00"
+		);
+	}
 	/*
 	public function test9JulShouldReturnTimeStamp(){
 		$this->assertShellExec(

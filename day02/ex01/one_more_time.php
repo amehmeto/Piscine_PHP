@@ -6,7 +6,7 @@ function isDateFormatCorrect($given_date){
 	$second_word_pattern = '(0[1-9]|[1-2]?\d|3[0-1])\ ';
 	$third_word_pattern = '([Jj]anvier|[Ff]evrier|[Mm]ars|[Aa]vril|[Mm]ai|[Jj]uin|[Jj]uillet|[Aa]out|[Ss]eptembre|[Oo]ctobre|[Nn]ovembre|[Dd]ecembre)\ ';
 	$fourth_word_pattern = '(19[7-9|0]\d|[2-9]\d{3})\ ';
-	$fifth_word_pattern = '([0-1]\d|2[1-4]):([0-5]\d):([0-5]\d)$/';
+	$fifth_word_pattern = '(([0-1]\d|2[1-4]):([0-5]\d):([0-5]\d))$/';
 
 	$full_pattern = 
 		$first_word_pattern .
