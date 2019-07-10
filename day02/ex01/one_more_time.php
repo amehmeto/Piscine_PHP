@@ -76,13 +76,38 @@ function isAboveTimestampMaxLimit($matches){
 		return TRUE;
 	return FALSE;
 }
+
+function getWeekdayNumber($given_day_name)
+{
+	$given_day_name = strtolower($given_day_name);
+
+	$weekday_to_num_equivalent = array(
+		'lundi' => 1,
+		'mardi' => 2,
+		'mercredi' => 3,
+		'jeudi' => 4,
+		'vendredi' => 5,
+		'samedi' => 6,
+		'dimanche' => 7
+	);
+	return $weekday_to_num_equivalent[$given_day_name];
+}
+
+function isNotDayNameConsistentWithTimestamp($matches){
+	$given_day_name = $matches[1];
+	$day_name_number = getWeekdayNumber($given_day_name);
+	$timestamp_weekday_number = date('N', generateTimestamp($matches));
+	
+	return ($day_name_number != $timestamp_weekday_number);
+}
+
 function matchesIsTimestampConsistent($matches)
 {
 	if (isUnderTimestampMinLimit($matches))
 		return FALSE;
 	if (isAboveTimestampMaxLimit($matches))
 		return FALSE;
-	if (isDayNameConsistentWithTimestamp($matches))
+	if (isNotDayNameConsistentWithTimestamp($matches))
 		return FALSE;
 	return TRUE;
 	

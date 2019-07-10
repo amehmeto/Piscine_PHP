@@ -59,30 +59,30 @@ class OneMoreTimeTests extends TestCase {
 			"Mercredi 00 Juillet 1999 12:02:21"
 		);
 	}
-	public function testSecondWordValid2ShouldRetunWrongFormat(){ $this->assertShellExec(
+	public function testSecondWordValid2ShouldRetunTimestamp(){ $this->assertShellExec(
 		"933415341\n",
-		"mercredi 31 Juillet 1999 12:02:21"
+		"Samedi 31 Juillet 1999 12:02:21"
 	);
 	}
 
 	public function testValidSecondWordShouldReturnTimeStamp(){
 		$this->assertShellExec(
 			"930823341\n",
-			"Mercredi 1 Juillet 1999 12:02:21"
+			"jeudi 1 Juillet 1999 12:02:21"
 		);
 	}
 
 	public function testValidSecondWord2ShouldReturnTimeStamp(){
 		$this->assertShellExec(
 			"930823341\n",
-			"Mercredi 01 Juillet 1999 12:02:21"
+			"Jeudi 01 Juillet 1999 12:02:21"
 		);
 	}
 
 	public function testInvalidThirdWordShouldReturnTimeStamp(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"mercredi 1 JUL 1999 12:02:21"
+			"jeudi 1 JUL 1999 12:02:21"
 		);
 	}	
 
@@ -110,7 +110,7 @@ class OneMoreTimeTests extends TestCase {
 	public function testValidFifthWordShouldReturnTimeStamp(){
 		$this->assertShellExec(
 			"631105341\n",
-			"mercredi 31 Decembre 1989 12:02:21"
+			"dimanche 31 Decembre 1989 12:02:21"
 		);
 	}
 
@@ -166,21 +166,21 @@ class OneMoreTimeTests extends TestCase {
 	public function testMaxTimestampShouldReturnWrongFormat(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"mercredi 19 janvier 2039 03:14:07"
+			"mardi 19 janvier 2039 03:14:07"
 		);
 	}
 
 	public function testMaxTimestamp2ShouldReturnTimestamp(){
 		$this->assertShellExec(
 			"2147483647\n",
-			"mercredi 19 janvier 2038 04:14:07"
+			"mardi 19 janvier 2038 04:14:07"
 		);
 	}
 
 	public function testMaxTimestamp2ShouldReturnWrongFormat(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"mercredi 19 fevrier 2038 04:14:07"
+			"mardi 19 fevrier 2038 04:14:07"
 		);
 	}
 
@@ -194,22 +194,36 @@ class OneMoreTimeTests extends TestCase {
 	public function testMaxTimestamp4ShouldReturnWrongFormat(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"mercredi 19 janvier 2038 05:14:07"
+			"mardi 19 janvier 2038 05:14:07"
 		);
 	}
 
 	public function testMaxTimestamp5ShouldReturnWrongFormat(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"mercredi 19 janvier 2038 04:15:07"
+			"mardi 19 janvier 2038 04:15:07"
 		);
 	}
 
 	public function testMaxTimestamp6ShouldReturnWrongFormat(){
 		$this->assertShellExec(
 			self::WRONG_FORMAT,
-			"mercredi 19 janvier 2038 04:14:08"
+			"mardi 19 janvier 2038 04:14:08"
 		);
+	}
+
+	public function testDayNameIsConsistentWithTimestamp(){
+		$this->assertShellExec(
+			"1562724848\n",
+			"mercredi 10 juillet 2019 04:14:08"
+		);	
+	}
+
+	public function testDayNameIsNotConsistentWithTimestamp(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"Lundi 10 juillet 2019 04:14:08"
+		);	
 	}
 }
 ?>
