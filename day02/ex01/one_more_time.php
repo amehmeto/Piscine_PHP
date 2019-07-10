@@ -2,15 +2,15 @@
 <?php
 
 function generatePattern(){
-	$first_word_pattern = '/^([Ll]undi|[Mm]ardi|[Mm]ercredi|[Jj]eudi|[Vv]endredi|[Ss]amedi|[Dd]imanche)\ ';
-	$second_word_pattern = '(0[1-9]|[1-2]?\d|3[0-1])\ ';
-	$third_word_pattern = '([Jj]anvier|[Ff]evrier|[Mm]ars|[Aa]vril|[Mm]ai|[Jj]uin|[Jj]uillet|[Aa]out|[Ss]eptembre|[Oo]ctobre|[Nn]ovembre|[Dd]ecembre)\ ';
-	$fourth_word_pattern = '(19[7-9|0]\d|[2-9]\d{3})\ ';
-	$fifth_word_pattern = '(([0-1]\d|2[1-4]):([0-5]\d):([0-5]\d))$/';
+	$day_name_pattern = '/^([Ll]undi|[Mm]ardi|[Mm]ercredi|[Jj]eudi|[Vv]endredi|[Ss]amedi|[Dd]imanche)\ ';
+	$day_number_pattern = '(0[1-9]|[1-2]?\d|3[0-1])\ ';
+	$month_pattern = '([Jj]anvier|[Ff]evrier|[Mm]ars|[Aa]vril|[Mm]ai|[Jj]uin|[Jj]uillet|[Aa]out|[Ss]eptembre|[Oo]ctobre|[Nn]ovembre|[Dd]ecembre)\ ';
+	$year_pattern = '(19[7-9|0]\d|20[0-2]\d|203[0-8])\ ';
+	$hours_minutes_secondes_pattern= '(([0-1]\d|2[1-4]):([0-5]\d):([0-5]\d))$/';
 
-	$full_pattern = $first_word_pattern . $second_word_pattern .
-		$third_word_pattern . $fourth_word_pattern .
-		$fifth_word_pattern;
+	$full_pattern = $day_name_pattern . $day_number_pattern .
+		$month_pattern . $year_pattern .
+		$hours_minutes_secondes_pattern;
 
 	return $full_pattern;
 }
@@ -49,9 +49,48 @@ function generateTimestamp($matches){
 	return $timestamp;
 }
 
+function isUnderTimestampMinLimit($matches){
+	return ($matches[4] < 1970);
+}
+
+function isAboveTimestampMaxLimit($matches){
+	$max_year = 2038;
+	$max_month = 1;
+	$max_day = 19;
+	$max_hour = 4;
+	$max_min = 14;
+	$max_second = 7;
+
+	if ($matches[4] > $max_year)
+		return TRUE;
+	$month = convertMonthNameIntoNumber($matches[3]);
+	if ($matches[4] == $max_year AND $month > 1)
+		return TRUE;	
+	if ($matches[4] == $max_year AND $month == $max_month AND $matches[2] > $max_day)
+		return TRUE;
+	if ($matches[4] == $max_year AND $month == $max_month AND $matches[2] == $max_day AND $matches[6] > $max_hour)
+		return TRUE;
+	if ($matches[4] == $max_year AND $month == $max_month AND $matches[2] == $max_day AND $matches[6] == $max_hour AND $matches[7] > $max_min)
+		return TRUE;
+	if ($matches[4] == $max_year AND $month == $max_month AND $matches[2] == $max_day AND $matches[6] == $max_hour AND $matches[7] == $max_min AND $matches[8] > $max_second)
+		return TRUE;
+	return FALSE;
+}
+function matchesIsTimestampConsistent($matches)
+{
+	if (isUnderTimestampMinLimit($matches))
+		return FALSE;
+	if (isAboveTimestampMaxLimit($matches))
+		return FALSE;
+	if (isDayNameConsistentWithTimestamp($matches))
+		return FALSE;
+	return TRUE;
+	
+}
+
 function isDateFormatCorrect($given_date){
 	$pattern = generatePattern();
-	return (preg_match($pattern, $given_date, $matches)) ? 
+	return (preg_match($pattern, $given_date, $matches) AND matchesIsTimestampConsistent($matches)) ? 
 		generateTimestamp($matches): "Wrong Format";
 }
 

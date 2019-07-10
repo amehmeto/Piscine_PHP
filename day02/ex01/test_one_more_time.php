@@ -162,5 +162,54 @@ class OneMoreTimeTests extends TestCase {
 			"mardi 9 Juillet 2019 22:27:32"
 		);
 	}
+
+	public function testMaxTimestampShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 19 janvier 2039 03:14:07"
+		);
+	}
+
+	public function testMaxTimestamp2ShouldReturnTimestamp(){
+		$this->assertShellExec(
+			"2147483647\n",
+			"mercredi 19 janvier 2038 04:14:07"
+		);
+	}
+
+	public function testMaxTimestamp2ShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 19 fevrier 2038 04:14:07"
+		);
+	}
+
+	public function testMaxTimestamp3ShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 20 janvier 2038 04:14:07"
+		);
+	}
+
+	public function testMaxTimestamp4ShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 19 janvier 2038 05:14:07"
+		);
+	}
+
+	public function testMaxTimestamp5ShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 19 janvier 2038 04:15:07"
+		);
+	}
+
+	public function testMaxTimestamp6ShouldReturnWrongFormat(){
+		$this->assertShellExec(
+			self::WRONG_FORMAT,
+			"mercredi 19 janvier 2038 04:14:08"
+		);
+	}
 }
 ?>
