@@ -15,9 +15,44 @@ function generatePattern(){
 	return $full_pattern;
 }
 
+function convertMonthNameIntoNumber($month_name)
+{
+	$month_name = strtolower($month_name);
+
+	$month_to_num_equivalent = array(
+		'janvier' => 1,
+		'fevrier' => 2,
+		'mars' => 3,
+		'avril' => 4,
+		'mai' => 5,
+		'juin' => 6,
+		'juillet' => 7,
+		'aout' => 8,
+		'septembre' => 9,
+		'octobre' => 10,
+		'novembre' => 11,
+		'decembre' => 12
+	);
+
+	return $month_to_num_equivalent[$month_name];
+}
+
+function generateTimestamp($matches){
+	$hour = $matches[6];
+	$minute = $matches[7];
+	$second = $matches[8];
+	$month = convertMonthNameIntoNumber($matches[3]);
+	$day = $matches[2];
+	$year = $matches[4];
+
+	$timestamp = mktime($hour, $minute, $second, $month, $day, $year);
+	return $timestamp;
+}
+
 function isDateFormatCorrect($given_date){
 	$pattern = generatePattern();
-	return (preg_match($pattern, $given_date, $matches)) ? "1384254141" : "Wrong Format";
+	return (preg_match($pattern, $given_date, $matches)) ? 
+		generateTimestamp($matches): "Wrong Format";
 }
 
 function displayTimeStamp($given_date)

@@ -155,13 +155,12 @@ class OneMoreTimeTests extends TestCase {
 			" mercredi 31 Decembre 1990 12:42:00"
 		);
 	}
-	/*
+
 	public function test9JulShouldReturnTimeStamp(){
 		$this->assertShellExec(
-			"1562624856\n",
-			"\"mardi 9 Juillet 2019 22:27:32\""
+			"1562970452\n",
+			"mardi 9 Juillet 2019 22:27:32"
 		);
 	}
-	 */
 }
 ?>
