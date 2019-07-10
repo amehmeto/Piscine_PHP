@@ -60,21 +60,21 @@ class OneMoreTimeTests extends TestCase {
 		);
 	}
 	public function testSecondWordValid2ShouldRetunWrongFormat(){ $this->assertShellExec(
-		"1384254141\n",
+		"933415341\n",
 		"mercredi 31 Juillet 1999 12:02:21"
 	);
 	}
 
 	public function testValidSecondWordShouldReturnTimeStamp(){
 		$this->assertShellExec(
-			"1384254141\n",
+			"930823341\n",
 			"Mercredi 1 Juillet 1999 12:02:21"
 		);
 	}
 
 	public function testValidSecondWord2ShouldReturnTimeStamp(){
 		$this->assertShellExec(
-			"1384254141\n",
+			"930823341\n",
 			"Mercredi 01 Juillet 1999 12:02:21"
 		);
 	}
@@ -109,7 +109,7 @@ class OneMoreTimeTests extends TestCase {
 
 	public function testValidFifthWordShouldReturnTimeStamp(){
 		$this->assertShellExec(
-			"1384254141\n",
+			"631105341\n",
 			"mercredi 31 Decembre 1989 12:02:21"
 		);
 	}
@@ -158,7 +158,7 @@ class OneMoreTimeTests extends TestCase {
 
 	public function test9JulShouldReturnTimeStamp(){
 		$this->assertShellExec(
-			"1562970452\n",
+			"1562704052\n",
 			"mardi 9 Juillet 2019 22:27:32"
 		);
 	}
