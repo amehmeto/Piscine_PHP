@@ -5,21 +5,35 @@ use PHPUnit\Framework\TestCase;
 class LoupeTests extends TestCase {
 
 	const CAT = 'cat ';
-	const PROG_NAME = './loupe.php';
+	const PROG_NAME = './loupe.php ';
+	const HTML_SUFFIX = '.html';
 
 	private function assertShellExec($cmd_line, $expected_output){
-		$out = shell_exec($cmd_line);
+		if ($cmd_line)
+			$cmd_line .= self::HTML_SUFFIX;
+	$out = shell_exec(self::PROG_NAME . $cmd_line);
 		$this->assertSame($expected_output, $out);
 	}
 
 	public function testNoParamShouldReturnNothing(){
-		$this->assertShellExec(self::PROG_NAME, NULL);
+		$this->assertShellExec(NULL, NULL);
 	}
 
-	public function testSimpleHTMLShouldDisplayHTML(){
+	public function testSimpleHTMLFile(){
 		$this->assertShellExec(
-			'./loupe.php hello_world.html',
-			"<p>Hello World</p>\n"
+			'hello_world',
+			"<p>Hello World</p>\n<p>That's cool in here</p>\n"
+		);
+	}
+
+	public function testWrongFileName(){
+		$this->assertShellExec('random_wrong_name', NULL);
+	}
+
+	public function testHTMLWithTitleAttribute(){
+		$this->assertShellExec(
+			'title',
+			"<html><head><title>Nice page</title></head>\n<body>Hello World <a href=\"http://cyan.com\" title=\"UN LIEN\">CECI EST UN LIEN</a>\n"
 		);
 	}
 }
