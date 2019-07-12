@@ -36,5 +36,6 @@ class LoupeTests extends TestCase {
 			"<html><head><title>Nice page</title></head>\n<body>Hello World <a href=\"http://cyan.com\" title=\"UN LIEN\">CECI EST UN LIEN</a>\n"
 		);
 	}
+
 }
 ?>

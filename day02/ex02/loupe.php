@@ -1,34 +1,32 @@
 #!/usr/bin/php
 <?php
-function matchTitleAttribute($line)
+
+function upperTitleAttributeAndTagContentOnly($matches){
+	return $matches[1] . strtoupper($matches[2]) . $matches[3];
+}
+
+function matchTitleAttribute($pattern, $line){
+	return preg_replace_callback(
+				$pattern, 
+				"upperTitleAttributeAndTagContentOnly",
+				$line
+			);
+}
+
+function transformLine($line)
 {
-	$pattern = '/(<a [^>]*title="?)([^">]*)("?[^>]*>)([^<]*)/';
-	$replacement = NULL;
+	$pattern[0] = '/(<a [^>]*>)([^<]*)(<)/';
+	$pattern[1] = '/( title="?)([^">]*)("?)/'; 
 
-	preg_match($pattern, $line, $matches);
-	if ($matches AND $matches[1])
-	{
-		$replacement[1] = strtoupper($matches[1]);
-	//	echo '$replacement = ' . $replacement ."\n";
-	}
-	$result = preg_replace_callback(
-			$pattern, 
-			function ($matches){
-				return $matches[1] .
-					strtoupper($matches[2]) .
-					$matches[3] .
-					strtoupper($matches[4]);
-			},
-			$line);
-	//$result = preg_replace($pattern, strtoupper('$2'), $line);
-	//echo "\n" . '$result = '. $result . "\n";
+	$line = matchTitleAttribute($pattern[0], $line);
+	$line = matchTitleAttribute($pattern[1], $line);
 
-	return $result;
+	return $line;
 }
 
 function displayFile($HTML_file){
 	foreach ($HTML_file as $line)
-		echo matchTitleAttribute($line);
+		echo transformLine($line);
 }
 
 if ($argc > 1)
