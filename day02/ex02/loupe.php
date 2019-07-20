@@ -5,7 +5,7 @@ function upperTitleAttributeAndTagContentOnly($matches){
 	return $matches[1] . strtoupper($matches[2]) . $matches[3];
 }
 
-function matchTitleAttribute($pattern, $line){
+function match($pattern, $line){
 	return preg_replace_callback(
 				$pattern, 
 				"upperTitleAttributeAndTagContentOnly",
@@ -15,11 +15,11 @@ function matchTitleAttribute($pattern, $line){
 
 function transformLine($line)
 {
-	$pattern[0] = '/(<a [^>]*>)([^<]*)(<)/';
-	$pattern[1] = '/( title="?)([^">]*)("?)/'; 
+	$pattern_ahref = '/(<a [^>]*>)([^<]*)(<)/';
+	$pattern_title = '/( title=")([^">]*)(")/'; 
 
-	$line = matchTitleAttribute($pattern[0], $line);
-	$line = matchTitleAttribute($pattern[1], $line);
+	$line = match($pattern_ahref, $line);
+	$line = match($pattern_title, $line);
 
 	return $line;
 }
