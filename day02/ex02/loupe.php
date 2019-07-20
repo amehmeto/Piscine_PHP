@@ -1,40 +1,40 @@
 #!/usr/bin/php
 <?php
 
-function upperTitleAttributeAndTagContentOnly($matches){
-	return $matches[1] . strtoupper($matches[2]) . $matches[3];
+function capitalizePattern($matches){
+
+	return $matches[1] . strtoupper($matches[2]) . $matches[3] . $matches[4];
 }
 
 function match($pattern, $line){
-	return preg_replace_callback(
-				$pattern, 
-				"upperTitleAttributeAndTagContentOnly",
+	$transformed_pattern = preg_replace_callback(
+				$pattern,
+        "capitalizePattern",
 				$line
 			);
+
+	return $transformed_pattern;
 }
 
 function transformLine($line)
 {
-	$pattern_ahref = '/(<a [^>]*>)([^<]*)(<)/';
-	$pattern_title = '/( title=")([^">]*)(")/'; 
+	$pattern_tags = '/(<a [^>]*>)([^<]*)(.*)(<\/a>)/';
+	$pattern_title = '/( title=")([^">]*)(")/';
 
-	$line = match($pattern_ahref, $line);
+	$line = match($pattern_tags, $line);
 	$line = match($pattern_title, $line);
 
 	return $line;
 }
 
-function displayFile($HTML_file){
+function displayFile($file_path){
+    $HTML_file = file($file_path);
+
 	foreach ($HTML_file as $line)
 		echo transformLine($line);
 }
 
 if ($argc > 1)
-{
 	if (file_exists($argv[1]))
-	{
-		$HTML_file = file($argv[1]);
-		displayFile($HTML_file);
-	}
-}
+		displayFile($argv[1]);
 ?>
