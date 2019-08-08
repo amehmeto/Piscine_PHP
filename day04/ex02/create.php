@@ -8,6 +8,7 @@ function storeCredentials($credentials){
         if (!mkdir("../private", 0700))
             echo "Directory creation failed\n";
     unset($credentials['submit']);
+    $credentials['passwd'] = hash('whirlpool', $credentials['passwd']);
     $credentials_list = array($credentials);
     $serialized_list = serialize($credentials_list);
     file_put_contents("../private/passwd", $serialized_list, FILE_APPEND);
