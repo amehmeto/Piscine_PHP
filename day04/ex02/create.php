@@ -14,6 +14,13 @@ function prepareNewCredentials($credentials){
     return $credentials;
 }
 
+function isLoginAlreadyUsed($searched_login, $credentials_list){
+    foreach ($credentials_list as $credentials)
+        if ($credentials['login'] === $searched_login)
+            return TRUE;
+    return FALSE;
+}
+
 function buildCredentialsList($credentials){
     $credentials = prepareNewCredentials($credentials);
     $path = "../private/passwd";
@@ -24,15 +31,25 @@ function buildCredentialsList($credentials){
         $serialized_list = file_get_contents($path);
         $credentials_list = unserialize($serialized_list);
     }
-    array_push($credentials_list, $credentials);
-    $serialized_list = serialize($credentials_list);
-    return $serialized_list;
+    if (!isLoginAlreadyUsed($credentials['login'], $credentials_list))
+    {
+        array_push($credentials_list, $credentials);
+        $serialized_list = serialize($credentials_list);
+        return $serialized_list;
+     }
+    return FALSE;
 }
+
 function storeCredentials($new_credentials){
     createPrivateDirectory();
     $credentials_list = buildCredentialsList($new_credentials);
-    file_put_contents("../private/passwd", $credentials_list);
-    echo "OK\n";
+    if ($credentials_list)
+    {
+        file_put_contents("../private/passwd", $credentials_list);
+        echo "OK\n";
+    }
+    else
+        echo "ERROR\n";
 }
 
 $error_message = "ERROR\n";
