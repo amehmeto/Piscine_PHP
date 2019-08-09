@@ -2,10 +2,8 @@
 
 function createPrivateDirectory(){
     $path = "../private";
-
-    if (!file_exists($path))
-        if (!mkdir($path, 0700))
-            echo "Directory creation failed\n";
+    if (!file_exists($path) AND !mkdir($path, 0700))
+        echo "Directory creation failed\n";
 }
 
 function prepareNewCredentials($credentials){
@@ -21,33 +19,37 @@ function isLoginAlreadyUsed($searched_login, $credentials_list){
     return FALSE;
 }
 
+function getUnserializedContent($path){
+    $serialized_list = file_get_contents($path);
+    return unserialize($serialized_list);
+}
+
+function addNewCredential($credentials_list, $credentials){
+    $credentials_list[] = $credentials;
+    $serialized_list = serialize($credentials_list);
+    return $serialized_list;
+}
+
 function buildCredentialsList($credentials){
     $credentials = prepareNewCredentials($credentials);
     $path = "../private/passwd";
-    if (!file_exists($path)) {
-        $credentials_list = array();
-    }
-    else {
-        $serialized_list = file_get_contents($path);
-        $credentials_list = unserialize($serialized_list);
-    }
+    $credentials_list = (!file_exists($path)) ? array() : getUnserializedContent($path);
+
     if (!isLoginAlreadyUsed($credentials['login'], $credentials_list))
-    {
-        array_push($credentials_list, $credentials);
-        $serialized_list = serialize($credentials_list);
-        return $serialized_list;
-     }
+        return addNewCredential($credentials_list, $credentials);
     return FALSE;
+}
+
+function writeNewCredentialsList($path, $credentials_list){
+    file_put_contents($path, $credentials_list);
+    echo "OK\n";
 }
 
 function storeCredentials($new_credentials){
     createPrivateDirectory();
     $credentials_list = buildCredentialsList($new_credentials);
     if ($credentials_list)
-    {
-        file_put_contents("../private/passwd", $credentials_list);
-        echo "OK\n";
-    }
+        writeNewCredentialsList("../private/passwd", $credentials_list);
     else
         echo "ERROR\n";
 }
