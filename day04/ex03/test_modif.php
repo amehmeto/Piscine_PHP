@@ -49,24 +49,19 @@ class ModifAccountTests extends TestCase {
         $this->assertSameModif("ERROR\n", "x", "007", "21");
     }
 
-    /*
     public function testInvalidCredentials2ShouldReturnError(){
         $this->assertSameModif("ERROR\n", "y", "884", "21");
     }
-    */
 
-
-    /*
+    public function testWrongLoginShouldReturnError(){
+        $this->assertSameModif("ERROR\n", "Booba", "42", "21");
+    }
     public function testBasicPasswordChange(){
-        shell_exec("rm ../private/passwd");
-        $cmd_line = $this->generateCreateCmdLine("x", "42");
-        shell_exec($cmd_line);
+        $this->resetPrivateDirectory();
         $cmd_line = $this->generateModifCmdLine("x", "42", "21");
         shell_exec($cmd_line);
         $output = shell_exec("cat ../private/passwd");
-        //$expected_output = "a:1:{i:0;a:2:{s:5:\"login\";s:1:\"x\";s:6:\"passwd\";s:128:\"75b5bd3160157e9ea5576f9bf9e60f3d680cc77b0f9f4fae492c0c0917a6995c860c985c99b87eae874e35f2b38a06efaa3bda5f28cfab942dbc34886db64f4d\";}}";
-        $expected_output = "a:1:{i:0;a:2:{s:5:\"login\";s:1:\"x\";s:6:\"passwd\";s:2:\"21\";}}";
+        $expected_output = "a:2:{i:0;a:2:{s:5:\"login\";s:1:\"x\";s:6:\"passwd\";s:128:\"75b5bd3160157e9ea5576f9bf9e60f3d680cc77b0f9f4fae492c0c0917a6995c860c985c99b87eae874e35f2b38a06efaa3bda5f28cfab942dbc34886db64f4d\";}:1;a:2:{s:5:\"login\";s:1:\"y\";s:6:\"passwd\";s:128:\"76936d1331bb87561dead9036bce3a29e7667d5a228a85ea825210d3944c2fad2f15c36aa6affa729d703d84857cf826aba199f0a9f45780c64261f1b22c0b7f\";}}";
         $this->assertSame($expected_output, $output);
     }
-    */
 }
