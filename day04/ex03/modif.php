@@ -45,11 +45,9 @@ function replacePassword($credentials, $new_password){
 }
 
 function getListWithModifiedPassword($credentials_list, $wanted_login, $new_password){
-    echo(print_r($credentials_list, TRUE));
-    foreach ($credentials_list as $credentials)
+    foreach ($credentials_list as $key => $credentials)
         if ($credentials['login'] === $wanted_login)
-            $credentials['passwd'] = "WESHH";//hash('whirlpool', $new_password);
-    echo(print_r($credentials_list, TRUE));
+            $credentials_list[$key]['passwd'] = hash('whirlpool', $new_password);
     return $credentials_list;
 }
 
