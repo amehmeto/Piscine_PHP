@@ -7,12 +7,16 @@ function getCredentialsList(){
     return $credentials_list;
 }
 
-function checkCredentials($login, $password){
-    $credentials_list = getCredentialsList();
+function isLoginValid($credentials_list, $login){
     foreach ($credentials_list as $credentials)
         if ($credentials['login'] === $login)
             return TRUE;
     return FALSE;
+}
+
+function checkCredentials($login, $password){
+    $credentials_list = getCredentialsList();
+    return isLoginValid($credentials_list, $login);
 }
 
 function auth($login, $password){
