@@ -50,9 +50,13 @@ class AuthTests extends TestCase {
         $this->assertSame(FALSE, auth("", "passwdsecret"));
     }
 
-    public function testWrongPasswordShouldReturnFalse(){
+    public function testWrongLoginShouldReturnFalse(){
         $this->resetPrivateDirectory("Booba", "jaimekaaris");
         $this->assertSame(FALSE, auth("Julie", "jaimekaaris"));
     }
 
+    public function testWrongPasswordShouldReturnFalse(){
+        $this->resetPrivateDirectory("Arsene", "Arsenal");
+        $this->assertSame(FALSE, auth("Arsene", "Chelsea"));
+    }
 }
