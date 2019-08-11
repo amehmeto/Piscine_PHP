@@ -12,7 +12,7 @@ function isPasswordValid($credentials, $password){
     return ($credentials['passwd'] === $hashed_password);
 }
 
-function isLoginValid($credentials_list, $login, $password){
+function isValid($credentials_list, $login, $password){
     foreach ($credentials_list as $key => $credentials)
         if ($credentials['login'] === $login)
             return isPasswordValid($credentials_list[$key], $password);
@@ -21,7 +21,7 @@ function isLoginValid($credentials_list, $login, $password){
 
 function checkCredentials($login, $password){
     $credentials_list = getCredentialsList();
-    return (isLoginValid($credentials_list, $login, $password));
+    return (isValid($credentials_list, $login, $password));
 }
 
 function auth($login, $password){

@@ -22,6 +22,11 @@ class AuthTests extends TestCase {
         $this->assertSame(NULL, NULL);
     }
 
+    public function testNullParamShouldReturnFalse(){
+        $this->resetPrivateDirectory("toto", "titi");
+        $this->assertSame(FALSE, auth(NULL, NULL));
+    }
+
     public function testBasicAuthShouldReturnTrue(){
         $this->resetPrivateDirectory("toto", "titi");
         $this->assertSame(TRUE, auth("toto", "titi"));
