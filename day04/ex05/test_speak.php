@@ -46,6 +46,14 @@ class SpeakTests extends TestCase{
         $this->assertSame($expected_output, $output);
     }
 
+    public function testSpeakShouldNotPopulatePrivateFile(){
+        $cmd_line = $this->generateCmd('-b user1.txt', 'speak');
+        shell_exec($cmd_line);
+        $expected_output = "a:1:{i:0;a:3:{s:5:\"login\";s:5:\"user1\";s:4:\"time\";i:" . time() . ";s:3:\"msg\";s:7:\"Bonjour\";}}";
+        $output = shell_exec('cat ../private/chat');
+        $this->assertSame($expected_output, $output);
+    }
+
     public function testLogoutShouldReturnError(){
         $cmd_line = $this->generateCmd('-b user1.txt -c user.txt', 'logout');
         shell_exec($cmd_line);
