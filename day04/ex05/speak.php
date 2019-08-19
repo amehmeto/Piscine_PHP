@@ -35,11 +35,12 @@ function populateChatDB(){
 }
 
 function speak(){
-    populateChatDB();
+    if ($_POST['submit'] === 'OK')
+        populateChatDB();
     echo generateSpeakForm();
 }
 
-if ($_SESSION['logged_on_user'])
+if ($_SESSION['logged_on_user'] )
     speak();
 else
     echo "ERROR\n";
