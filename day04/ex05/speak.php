@@ -38,6 +38,7 @@ function speak(){
     if ($_POST['submit'] === 'OK')
         populateChatDB();
     echo generateSpeakForm();
+    echo "<script langage=\"javascript\">top.frames['chat'].location ='chat.php';</script>";
 }
 
 if ($_SESSION['logged_on_user'] )
